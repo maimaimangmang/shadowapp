@@ -19,7 +19,7 @@
   <a href="https://github.com/maimaimangmang/shadowapp/releases/tag/v0.2.0">v0.2.0 预览版 · 版本说明与校验文件</a>
 </p>
 
-![ShadowApp 主界面：按应用管理个人、工作和模型实验空间](docs/images/zh/overview.png)
+![ShadowApp 0.2.0 主界面：已有窗口与独立账号空间](docs/images/overview.png)
 
 把个人账号、工作账号和不同模型配置分开管理，需要哪个就打开哪个。可选择账号登录或使用其他供应商 API Key直接登录。ShadowApp 使用本机已安装的应用，无需额外运行虚拟机或切换 macOS 用户。
 
