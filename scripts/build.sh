@@ -10,7 +10,10 @@ swift_options=(--disable-sandbox --cache-path .build/package-cache --config-path
 
 xcrun swift build "${swift_options[@]}" -c release --arch "$arch" --product CodexMulti
 bin_dir="$(xcrun swift build "${swift_options[@]}" -c release --arch "$arch" --show-bin-path)"
-app="$PWD/dist/$arch/ShadowApp.app"
+output_dir="${SHADOWAPP_OUTPUT_DIR:-$PWD/dist}"
+mkdir -p "$output_dir"
+output_dir="$(cd "$output_dir" && pwd)"
+app="$output_dir/$arch/ShadowApp.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$bin_dir/CodexMulti" "$app/Contents/MacOS/CodexMulti"
 xcrun strip -S "$app/Contents/MacOS/CodexMulti"
@@ -25,7 +28,7 @@ else
 fi
 codesign --verify --strict "$app"
 version="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Resources/Info.plist)"
-archive="$PWD/dist/ShadowApp-$version-$arch.zip"
+archive="$output_dir/ShadowApp-$version-$arch.zip"
 ditto -c -k --sequesterRsrc --keepParent "$app" "$archive"
-(cd dist && shasum -a 256 "$(basename "$archive")" > "$(basename "$archive").sha256")
+(cd "$output_dir" && shasum -a 256 "$(basename "$archive")" > "$(basename "$archive").sha256")
 printf 'Built app: %s\nRelease archive: %s\n' "$app" "$archive"

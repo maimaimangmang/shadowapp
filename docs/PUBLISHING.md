@@ -19,17 +19,21 @@ git push origin main
 
 若远端已有新提交，先合并或变基并处理冲突，不要强制覆盖远端。`.gitignore` 排除了构建目录和常见账号状态文件；账号数据默认存放在源码目录之外。不要把运行目录复制进仓库。
 
-GitHub Actions 在推送或提交 PR 后运行检查、构建两个架构的启动器，并保存 `shadowapp-preview` ZIP 与校验和。源码推送不会创建 Release；源码、CI 产物和已有 Release 是不同交付物。README 中的新版功能以 `main` 为准，旧 v0.1.0 仍为 Codex Multi。
+GitHub Actions 在推送或提交 PR 后运行检查、构建两个架构的启动器，并保存 `shadowapp-preview` ZIP 与校验和。源码推送不会创建 Release；源码、CI 产物和 Release 是不同交付物。当前安装包为 ShadowApp v0.2.0 预览版，旧 v0.1.0 仍为 Codex Multi。
 
 ## 发布可下载应用
 
 1. 执行 `bash scripts/test.sh` 和目标架构的构建脚本。
 2. 按 [兼容性清单](COMPATIBILITY.md) 完成两个实际账号的手工验收，记录各应用、系统及版本的验证范围。
 3. 先更新 Info.plist 中的版本号，再在 GitHub 的 Releases 创建对应的新版本（不要覆盖已有 v0.1.0），选择 **Set as a pre-release**。
-4. 上传 `dist/ShadowApp-<version>-arm64.zip` 及其 `.sha256`。仅在确认目标应用版本支持 Intel 且已验证时再发布 Intel 包。
+4. 执行 `bash scripts/package-dmg.sh arm64`，上传 DMG、ZIP 及各自的 `.sha256` 文件。仅在确认目标应用版本支持 Intel 且已验证时再发布 Intel 包。
 5. 使用 [RELEASE_NOTES.md](RELEASE_NOTES.md) 作为说明基础，准确保留尚未验证的项目。
 
-普通用户下载应用 ZIP 后即可运行启动器，不需要自己安装开发工具。目标应用仍需另行安装。
+普通用户打开 DMG 后拖入「应用程序」，或解压 ZIP 后运行，无需安装开发工具。目标应用仍需另行安装。
+
+仓库为私有状态时，Release 和安装包同样需要仓库访问权限。公开下载前，需要由仓库所有者决定是否公开源码仓库或使用独立的公开下载渠道。不要仅凭创建 Release 就声称所有用户都能下载。
+
+构建与打包脚本支持 `SHADOWAPP_OUTPUT_DIR` 指定输出目录，可用于准备新版本而不覆盖正在使用的本地应用。
 
 ## 签名与公证
 

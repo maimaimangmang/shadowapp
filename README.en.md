@@ -14,6 +14,11 @@
   <a href="README.md">简体中文</a> · English · <a href="#get-started">Get started</a> · <a href="docs/COMPATIBILITY.md">Compatibility</a> · <a href="CHANGELOG.md">Changelog</a>
 </p>
 
+<p align="center">
+  <strong><a href="https://github.com/maimaimangmang/shadowapp/releases/download/v0.2.0/ShadowApp-0.2.0-arm64.dmg">Download for Mac · Apple Silicon</a></strong><br>
+  <a href="https://github.com/maimaimangmang/shadowapp/releases/tag/v0.2.0">v0.2.0 Preview · Release notes and checksums</a>
+</p>
+
 ![ShadowApp dashboard with separate personal, work and model profiles](docs/images/en/overview.png)
 
 <p align="center"><sub>Rendered from the current SwiftUI views with example profiles. No real accounts or keys. ShadowApp-Preview is a temporary demonstration directory.</sub></p>
@@ -25,7 +30,7 @@ Keep personal accounts, work accounts and model configurations in separate profi
 - **Find the right window.** Open an instance, bring an existing window forward or quit a specific profile. Apps keep running when the launcher closes.
 - **See where data lives.** Each profile shows its actual data path, with copy and Finder actions.
 
-> ShadowApp was previously **Codex Multi**. The repository is now named `shadowapp`; existing storage paths are retained. This README describes the development version on `main`; the [v0.1.0 download](https://github.com/maimaimangmang/shadowapp/releases/tag/v0.1.0) is the older Codex Multi build and does not contain all the features shown here.
+> **v0.2.0 Preview.** ShadowApp was previously Codex Multi. Existing profile data is retained; you do not need to migrate it. The older v0.1.0 release remains available for reference.
 
 ## Supported apps
 
@@ -40,24 +45,21 @@ Data separation and feature coverage vary by app. Updates may require adapter ch
 
 ## Get started
 
-### 1. Get the current version
+### 1. Download and install
 
-Build the latest source with **macOS 13+, Swift 5.9+, and Xcode or Command Line Tools**. Install each target app separately and meet its own system requirements.
+| Package | For |
+| --- | --- |
+| [Download DMG](https://github.com/maimaimangmang/shadowapp/releases/download/v0.2.0/ShadowApp-0.2.0-arm64.dmg) | Recommended for Apple Silicon Macs (M series), macOS 13+ |
+| [Download ZIP](https://github.com/maimaimangmang/shadowapp/releases/download/v0.2.0/ShadowApp-0.2.0-arm64.zip) | The same app in a ZIP archive |
+| [Release notes and checksums](https://github.com/maimaimangmang/shadowapp/releases/tag/v0.2.0) | Compatibility, known limitations and SHA-256 files |
 
-```bash
-# Only if Apple developer tools are not installed
-xcode-select --install
+1. Open the DMG and drag **ShadowApp.app** into **Applications**.
+2. Open ShadowApp from Applications. No Xcode, Swift or terminal commands are needed.
+3. Install each target app separately; their own system requirements still apply.
 
-# Build for the architecture of this Mac
-git clone https://github.com/maimaimangmang/shadowapp.git
-cd shadowapp
-bash scripts/build.sh
-open "dist/$(uname -m)/ShadowApp.app"
-```
+This preview uses an ad-hoc signature and is not Apple-notarized. If macOS blocks it, confirm the download source and use **System Settings → Privacy & Security → Open Anyway**. Intel builds are available for developers, but an Intel release package is not provided until runtime validation is complete.
 
-You can move the resulting app to Applications. Builds use an ad-hoc local signature by default and are not Apple-notarized. See [distribution instructions](docs/PUBLISHING.md).
-
-Alternatively, download the `shadowapp-preview` artifact from a successful [GitHub Actions build](https://github.com/maimaimangmang/shadowapp/actions/workflows/build.yml). This requires a signed-in GitHub account with repository access.
+While this repository is private, downloads require a GitHub account with repository access.
 
 ### 2. Create a profile
 
@@ -154,10 +156,20 @@ The interface follows the system's app language. In macOS, use **System Settings
 
 Native SwiftUI and system frameworks, with no third-party Swift package dependencies.
 
+Source builds require Swift 5.9+ and Xcode or Command Line Tools (`xcode-select --install`).
+
+```bash
+git clone https://github.com/maimaimangmang/shadowapp.git
+cd shadowapp
+bash scripts/build.sh
+open "dist/$(uname -m)/ShadowApp.app"
+```
+
 ```bash
 bash scripts/test.sh                 # Core and state checks
 bash scripts/build.sh arm64          # Apple Silicon
 bash scripts/build.sh x86_64         # Intel build; target-app support varies
+bash scripts/package-dmg.sh arm64    # Package a built app as a DMG
 bash scripts/render-docs.sh          # Render bilingual images using temporary examples
 ```
 

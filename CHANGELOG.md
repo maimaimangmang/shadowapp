@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 — Preview (2026-10-30)
+
+- Publish an Apple Silicon DMG with an Applications shortcut, a ZIP alternative, and SHA-256 checksums; move direct downloads to the top of both READMEs.
 
 - Rename the GitHub repository to `shadowapp` and update repository links and clone instructions.
 

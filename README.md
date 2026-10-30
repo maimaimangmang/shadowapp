@@ -14,6 +14,11 @@
   简体中文 · <a href="README.en.md">English</a> · <a href="#快速开始">快速开始</a> · <a href="docs/COMPATIBILITY.md">兼容性记录</a> · <a href="CHANGELOG.md">更新日志</a>
 </p>
 
+<p align="center">
+  <strong><a href="https://github.com/maimaimangmang/shadowapp/releases/download/v0.2.0/ShadowApp-0.2.0-arm64.dmg">下载 Mac 安装包 · M 系列芯片</a></strong><br>
+  <a href="https://github.com/maimaimangmang/shadowapp/releases/tag/v0.2.0">v0.2.0 预览版 · 版本说明与校验文件</a>
+</p>
+
 ![ShadowApp 主界面：按应用管理个人、工作和模型实验空间](docs/images/zh/overview.png)
 
 把个人账号、工作账号和不同模型配置分开管理，需要哪个就打开哪个。可选择账号登录或使用其他供应商 API Key直接登录。ShadowApp 使用本机已安装的应用，无需额外运行虚拟机或切换 macOS 用户。
@@ -23,7 +28,7 @@
 - **窗口随时找得到**：打开新实例、显示已有窗口、单独退出；退出 ShadowApp 后，应用仍可继续运行。
 - **数据位置看得见**：每张空间卡片展示实际路径，可复制或在访达中打开。
 
-> ShadowApp 原名 **Codex Multi**，仓库现名为 `shadowapp`，已有数据目录保留。本文介绍 `main` 分支的开发版；[v0.1.0 下载包](https://github.com/maimaimangmang/shadowapp/releases/tag/v0.1.0) 仍是旧版 Codex Multi，未包含这里展示的全部功能。
+> **v0.2.0 预览版。** ShadowApp 原名 Codex Multi，已有空间的数据会保留，无需迁移。旧版 v0.1.0 仍保留供查阅。
 
 ## 支持哪些应用
 
@@ -38,24 +43,21 @@
 
 ## 快速开始
 
-### 1. 获取当前版本
+### 1. 下载安装
 
-新版可从源码构建。需要 **macOS 13+、Swift 5.9+、Xcode 或 Command Line Tools**；目标应用还需满足自身系统要求，并提前安装。
+| 下载项 | 适用情况 |
+| --- | --- |
+| [下载 DMG 安装包](https://github.com/maimaimangmang/shadowapp/releases/download/v0.2.0/ShadowApp-0.2.0-arm64.dmg) | 推荐；M 系列芯片 Mac，macOS 13+ |
+| [下载 ZIP 压缩包](https://github.com/maimaimangmang/shadowapp/releases/download/v0.2.0/ShadowApp-0.2.0-arm64.zip) | 同一个应用的 ZIP 版本 |
+| [版本说明与校验文件](https://github.com/maimaimangmang/shadowapp/releases/tag/v0.2.0) | 兼容范围、已知限制及 SHA-256 文件 |
 
-```bash
-# 如果尚未安装 Apple 开发工具
-xcode-select --install
+1. 打开 DMG，将 **ShadowApp.app** 拖到 **Applications（应用程序）**。
+2. 从「应用程序」打开 ShadowApp，无需安装 Xcode、Swift 或运行命令。
+3. 需要多开的目标应用请提前另行安装，并满足其自身系统要求。
 
-# 获取源码并构建；默认使用当前 Mac 的芯片架构
-git clone https://github.com/maimaimangmang/shadowapp.git
-cd shadowapp
-bash scripts/build.sh
-open "dist/$(uname -m)/ShadowApp.app"
-```
+预览版采用本地临时签名，尚未经过 Apple 公证。若 macOS 阻止打开，请确认下载来源后，在「系统设置 → 隐私与安全性」选择「仍要打开」。Intel 构建目前供开发者使用，完成实机验证前暂不提供 Intel 下载包。
 
-构建产物也可以拖入「应用程序」。默认采用本地临时签名，未经 Apple 公证；分发说明见 [PUBLISHING](docs/PUBLISHING.md)。
-
-也可从成功的 [GitHub Actions 构建](https://github.com/maimaimangmang/shadowapp/actions/workflows/build.yml) 下载 `shadowapp-preview` 产物，需要登录有仓库访问权限的 GitHub 账号。
+仓库为私有状态时，下载安装包需要使用有仓库访问权限的 GitHub 账号。
 
 ### 2. 创建一个空间
 
@@ -152,10 +154,20 @@ ShadowApp 分离受支持应用的数据和配置。浏览器登录、系统权�
 
 原生 SwiftUI，使用系统框架，没有第三方 Swift 包依赖。
 
+源码构建需要 Swift 5.9+ 以及 Xcode 或 Command Line Tools（`xcode-select --install`）。
+
+```bash
+git clone https://github.com/maimaimangmang/shadowapp.git
+cd shadowapp
+bash scripts/build.sh
+open "dist/$(uname -m)/ShadowApp.app"
+```
+
 ```bash
 bash scripts/test.sh                 # 核心与状态检查
 bash scripts/build.sh arm64          # Apple Silicon
 bash scripts/build.sh x86_64         # Intel 构建，不代表所有目标应用均支持 Intel
+bash scripts/package-dmg.sh arm64    # 将已构建的应用打包成 DMG
 bash scripts/render-docs.sh          # 用临时示例数据生成中英文界面图
 ```
 
