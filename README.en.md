@@ -68,22 +68,24 @@ This preview uses an ad-hoc signature and is not Apple-notarized. If macOS block
 
 A profile name is your label, not an authenticated account identity. “Running” only means the process exists; it does not confirm sign-in or a working model connection. Existing windows can be brought forward without importing their credentials or history.
 
-## API keys and custom models
+## BYOK: bring your own API key
 
 <p align="center">
-  <img src="docs/images/en/api-key.png" alt="API key profile form with provider, key, model ID and connection test" width="440">
+  <img src="docs/images/en/api-key.png" alt="BYOK settings with a custom provider, base URL, API key, model ID and connection test" width="440">
 </p>
 
-Choose **Shengsuanyun** for a preset endpoint or **Custom provider** for your own gateway. Paste a key and the full model ID supplied by your provider, then save the connection as a separate profile.
+ShadowApp supports **BYOK (Bring Your Own Key)**. Use your chosen provider or self-hosted gateway, provided its API and model are compatible with the target client.
+
+Choose **API Key → Custom provider**, then enter the provider name, base URL, API key and full model ID to save the connection as a separate profile.
 
 | Setting | Codex | Claude |
 | --- | --- | --- |
 | Required protocol | OpenAI **Responses API** | **Anthropic Messages API** |
-| Shengsuanyun base URL | `https://router.shengsuanyun.com/api/v1` | `https://router.shengsuanyun.com/api` |
+| Base URL | The Responses API base URL supplied by your provider | The Anthropic Messages root URL supplied by your provider, without `/v1` |
 | Model ID | Full model ID supported by the provider | Claude model or its gateway routing ID |
 | Where to start | Select **Codex** and create a new chat | Use the configured third-party inference provider |
 
-[Get a Shengsuanyun API key](https://console.shengsuanyun.com/user/keys) · [Browse model IDs](https://global.modelmesh.info/model)
+Get the API key, endpoint and model ID from your chosen provider's console and documentation.
 
 - **Try the connection.** Once the fields are complete, choose “Test connection”. This sends a short request and may incur a small charge. Saving alone does not run a test.
 - **Match the protocol.** A Chat Completions-only endpoint is not sufficient for Codex. Streaming and tool use must also be compatible; a basic connection test does not establish full feature support. Renaming a DeepSeek or GLM model to Claude will not make it compatible with Claude Desktop.

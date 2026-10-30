@@ -40,10 +40,12 @@ struct DocumentationImages {
             MultiApplicationDashboard(codex: codex, claude: claude, workbuddy: workbuddy,
                                       wechat: wechat, selection: .constant(application))
         }
-        try render(dashboard(.codex), size: CGSize(width: 960, height: 600), to: output.appendingPathComponent("overview.png"))
-        try render(ProfileEditor(profile: nil, model: codex, name: Texts.t("开发助手", "Dev assistant")),
-                   size: CGSize(width: 440, height: 550), to: output.appendingPathComponent("api-key.png"))
-        try render(dashboard(.wechat), size: CGSize(width: 960, height: 600), to: output.appendingPathComponent("wechat.png"))
+        let apiOnly = CommandLine.arguments.contains("--api-only")
+        if !apiOnly { try render(dashboard(.codex), size: CGSize(width: 960, height: 600), to: output.appendingPathComponent("overview.png")) }
+        guard let apiProfile = codex.profiles.first(where: { $0.apiProvider != nil }) else { fatalError("Missing API example") }
+        try render(ProviderConnectionEditor(profile: apiProfile, model: codex),
+                   size: CGSize(width: 440, height: 580), to: output.appendingPathComponent("api-key.png"))
+        if !apiOnly { try render(dashboard(.wechat), size: CGSize(width: 960, height: 600), to: output.appendingPathComponent("wechat.png")) }
     }
 
     @MainActor private static func render<Content: View>(_ content: Content, size: CGSize, to url: URL) throws {

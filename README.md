@@ -66,22 +66,24 @@
 
 空间名称只是你自己的标签，不代表已经登录某个账号。「运行中」表示进程存在，不代表账号已登录或模型调用成功。已有窗口可以直接显示，ShadowApp 不自动导入其登录信息或聊天记录。
 
-## 使用 API Key 和自定义模型
+## BYOK：使用自己的 API Key
 
 <p align="center">
-  <img src="docs/images/zh/api-key.png" alt="新建 API Key 空间：供应商、Key、模型 ID 与测试连接" width="440">
+  <img src="docs/images/zh/api-key.png" alt="BYOK 配置：自定义供应商、接口地址、API Key、模型 ID 与测试连接" width="440">
 </p>
 
-选择 **胜算云** 使用预填地址，或选择 **自定义供应商** 填写自己的网关。粘贴 API Key 和供应商提供的完整模型 ID，即可保存为独立空间。
+ShadowApp 支持 **BYOK（Bring Your Own Key，自带 API Key）**：使用你选择的供应商或自建网关，只需接口和模型兼容对应客户端。
+
+在 **API Key → 自定义供应商** 中填写供应商名称、Base URL、API Key 和完整模型 ID，即可保存为独立空间。
 
 | 设置 | Codex | Claude |
 | --- | --- | --- |
 | 所需协议 | OpenAI **Responses API** | **Anthropic Messages API** |
-| 胜算云 Base URL | `https://router.shengsuanyun.com/api/v1` | `https://router.shengsuanyun.com/api` |
+| Base URL | 供应商提供的 Responses API 地址 | 供应商提供的 Anthropic Messages 根地址，不带 `/v1` |
 | 模型 ID | 供应商支持的完整模型 ID | Claude 模型或相应网关路由 ID |
 | 使用入口 | 打开后选择 **Codex**，新建聊天 | 使用已配置的第三方推理供应商 |
 
-[获取胜算云 API Key](https://console.shengsuanyun.com/user/keys) · [查看模型列表](https://global.modelmesh.info/model)
+API Key、接口地址和模型 ID 以你所用供应商的控制台和文档为准。
 
 - **先试再保存**：填写完整后可点「测试连接」。测试会发送一条简短请求，可能产生少量费用；保存本身不发起测试。
 - **协议要匹配**：只支持 Chat Completions 的接口不能直接用于 Codex。实际使用还需要流式输出、工具调用等兼容性；基础连接成功不代表全部功能可用。Claude 不支持把 DeepSeek / GLM 的名称改成 Claude 来使用。

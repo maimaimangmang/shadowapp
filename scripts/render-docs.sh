@@ -13,5 +13,5 @@ done
 xcrun swiftc -parse-as-library -I "$bin_dir/Modules" \
     "$bin_dir"/CodexMultiCore.build/*.o "$bin_dir"/CodexMultiState.build/*.o \
     "${ui_sources[@]}" scripts/render-docs.swift -o .build/render-docs
-.build/render-docs "$PWD/docs/images/zh" -AppleLanguages '(zh-Hans)'
-.build/render-docs "$PWD/docs/images/en" -AppleLanguages '(en)'
+.build/render-docs "$PWD/docs/images/zh" -AppleLanguages '(zh-Hans)' "$@"
+.build/render-docs "$PWD/docs/images/en" -AppleLanguages '(en)' "$@"
