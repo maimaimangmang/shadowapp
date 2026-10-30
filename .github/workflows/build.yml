@@ -18,13 +18,17 @@ jobs:
           persist-credentials: false
       - name: Test core behavior
         run: bash scripts/test.sh
+      - name: Test connection probe against localhost
+        run: python3 scripts/check-connection-probe.py
+      - name: Test cross-process operation leases
+        run: python3 scripts/check-operation-leases.py
       - name: Build Apple Silicon launcher
         run: bash scripts/build.sh arm64
       - name: Cross-build Intel launcher
         run: bash scripts/build.sh x86_64
       - uses: actions/upload-artifact@v7
         with:
-          name: codex-multi-preview
+          name: shadowapp-preview
           path: |
             dist/*.zip
             dist/*.sha256

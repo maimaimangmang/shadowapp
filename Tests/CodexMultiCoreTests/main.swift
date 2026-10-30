@@ -71,5 +71,16 @@ for (name, test) in tests {
     catch { failures += 1; print("FAIL cleanup: \(error)") }
     if failures == before { print("PASS \(name)") }
 }
-print("\(tests.count) tests; \(failures) failures")
+let leaseTestCount = runOperationLeaseTests()
+let configEditorTestCount = runProviderConfigurationEditorTests()
+let storageTestCount = runStorageOperationTests()
+let probeTestCount = runProviderConnectionProbeTests()
+let directoryTestCount = runProfileDirectoryTests()
+let evidenceTestCount = runSessionModelEvidenceTests()
+let guidanceTestCount = runProfileGuidanceTests()
+let apiProviderTestCount = runAPIProviderTests()
+let claudeProviderTestCount = runClaudeProviderTests()
+let multiApplicationTestCount = runMultiApplicationTests() + runWeChatTests()
+let appModelTestCount = await runAppModelTests()
+print("\(tests.count + appModelTestCount + apiProviderTestCount + guidanceTestCount + evidenceTestCount + directoryTestCount + probeTestCount + storageTestCount + leaseTestCount + configEditorTestCount + multiApplicationTestCount + claudeProviderTestCount) tests; \(failures) failures")
 exit(failures == 0 ? 0 : 1)

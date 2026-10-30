@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleIdentifier</key><string>org.codexmulti.launcher</string>
-    <key>CFBundleName</key><string>Codex Multi</string>
-    <key>CFBundleDisplayName</key><string>Codex Multi</string>
+    <key>CFBundleName</key><string>ShadowApp</string>
+    <key>CFBundleDisplayName</key><string>ShadowApp</string>
     <key>CFBundleExecutable</key><string>CodexMulti</string>
     <key>CFBundlePackageType</key><string>APPL</string>
     <key>CFBundleShortVersionString</key><string>0.1.0</string>
@@ -13,7 +13,7 @@
     <key>LSMinimumSystemVersion</key><string>13.0</string>
     <key>LSApplicationCategoryType</key><string>public.app-category.developer-tools</string>
     <key>NSHighResolutionCapable</key><true/>
-    <key>NSHumanReadableCopyright</key><string>Copyright © 2026 Codex Multi contributors. MIT License.</string>
+    <key>NSHumanReadableCopyright</key><string>Copyright © 2026 ShadowApp contributors. MIT License.</string>
     <key>CFBundleLocalizations</key><array><string>en</string><string>zh-Hans</string></array>
 </dict>
 </plist>

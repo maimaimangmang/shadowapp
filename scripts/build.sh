@@ -10,12 +10,13 @@ swift_options=(--disable-sandbox --cache-path .build/package-cache --config-path
 
 xcrun swift build "${swift_options[@]}" -c release --arch "$arch" --product CodexMulti
 bin_dir="$(xcrun swift build "${swift_options[@]}" -c release --arch "$arch" --show-bin-path)"
-app="$PWD/dist/$arch/Codex Multi.app"
+app="$PWD/dist/$arch/ShadowApp.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp "$bin_dir/CodexMulti" "$app/Contents/MacOS/CodexMulti"
 xcrun strip -S "$app/Contents/MacOS/CodexMulti"
 cp Resources/Info.plist "$app/Contents/Info.plist"
-xcrun swift scripts/make-icon.swift "$PWD/.build/AppIcon.iconset"
+xcrun swiftc Sources/CodexMultiCore/ShadowAppBrand.swift scripts/make-icon.swift -o .build/make-icon
+.build/make-icon "$PWD/.build/AppIcon.iconset"
 iconutil -c icns .build/AppIcon.iconset -o "$app/Contents/Resources/AppIcon.icns"
 if [ -n "${CODEX_MULTI_SIGN_IDENTITY:-}" ]; then
     codesign --force --options runtime --timestamp --sign "$CODEX_MULTI_SIGN_IDENTITY" "$app"
@@ -24,7 +25,7 @@ else
 fi
 codesign --verify --strict "$app"
 version="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' Resources/Info.plist)"
-archive="$PWD/dist/Codex-Multi-$version-$arch.zip"
+archive="$PWD/dist/ShadowApp-$version-$arch.zip"
 ditto -c -k --sequesterRsrc --keepParent "$app" "$archive"
 (cd dist && shasum -a 256 "$(basename "$archive")" > "$(basename "$archive").sha256")
 printf 'Built app: %s\nRelease archive: %s\n' "$app" "$archive"

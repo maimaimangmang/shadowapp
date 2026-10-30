@@ -10,7 +10,8 @@ let package = Package(
     ],
     targets: [
         .target(name: "CodexMultiCore"),
-        .executableTarget(name: "CodexMulti", dependencies: ["CodexMultiCore"]),
-        .executableTarget(name: "CodexMultiTests", dependencies: ["CodexMultiCore"], path: "Tests/CodexMultiCoreTests")
+        .target(name: "CodexMultiState", dependencies: ["CodexMultiCore"]),
+        .executableTarget(name: "CodexMulti", dependencies: ["CodexMultiCore", "CodexMultiState"]),
+        .executableTarget(name: "CodexMultiTests", dependencies: ["CodexMultiCore", "CodexMultiState"], path: "Tests/CodexMultiCoreTests")
     ]
 )

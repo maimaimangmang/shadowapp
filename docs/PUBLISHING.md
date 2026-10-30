@@ -1,33 +1,35 @@
 # 发布到 GitHub
 
-建议仓库名称：`codex-multi`。项目采用 MIT 许可证，公开源码即可供他人构建。
+产品名称为 ShadowApp，现有仓库地址 `maimaimangmang/codex-multi` 保留。项目采用 MIT 许可证，公开源码即可供他人构建。
 
-## 上传源码
+## 更新现有仓库
 
-在 GitHub 创建一个空仓库，然后在本项目根目录执行以下命令。将 `YOUR_ACCOUNT` 换成你实际的 GitHub 用户名或组织名。
+在已有 checkout 中整理本地修改，确认远端与当前分支，再提交并正常推送：
 
 ```bash
-git init -b main
-git add .
-git status --short
-git commit -m "Initial Codex Multi preview"
-git remote add origin https://github.com/YOUR_ACCOUNT/codex-multi.git
-git push -u origin main
+git remote -v
+git fetch origin
+git status --short --branch
+# 明确添加本次准备发布的文件；检查暂存区，勿添加账号数据
+git diff --cached --stat
+git diff --cached --check
+git commit -m "Describe the change"
+git push origin main
 ```
 
-提交前检查暂存文件。`.gitignore` 排除了构建目录和常见账号状态文件；账号数据默认存放在源码目录之外。不要把运行目录复制进仓库。
+若远端已有新提交，先合并或变基并处理冲突，不要强制覆盖远端。`.gitignore` 排除了构建目录和常见账号状态文件；账号数据默认存放在源码目录之外。不要把运行目录复制进仓库。
 
-仓库已经包含 GitHub Actions 工作流，推送或提交 PR 后运行测试、构建两个架构的启动器，并保存 ZIP 与校验和。工作流不会自动创建公开 Release。GitHub 上的 CI 仍需在实际仓库中首次运行验证。
+GitHub Actions 在推送或提交 PR 后运行检查、构建两个架构的启动器，并保存 `shadowapp-preview` ZIP 与校验和。源码推送不会创建 Release；源码、CI 产物和已有 Release 是不同交付物。README 中的新版功能以 `main` 为准，旧 v0.1.0 仍为 Codex Multi。
 
 ## 发布可下载应用
 
 1. 执行 `bash scripts/test.sh` 和目标架构的构建脚本。
-2. 按 [兼容性清单](COMPATIBILITY.md) 完成两个实际账号的手工验收，记录哪些系统和 Codex 版本验证过。
-3. 在 GitHub 的 Releases 新建 `v0.1.0`，选择 **Set as a pre-release**。
-4. 上传 `dist/Codex-Multi-0.1.0-arm64.zip` 及其 `.sha256`。仅在确认目标 Codex 版本支持 Intel 且已验证时再发布 Intel 包。
+2. 按 [兼容性清单](COMPATIBILITY.md) 完成两个实际账号的手工验收，记录各应用、系统及版本的验证范围。
+3. 先更新 Info.plist 中的版本号，再在 GitHub 的 Releases 创建对应的新版本（不要覆盖已有 v0.1.0），选择 **Set as a pre-release**。
+4. 上传 `dist/ShadowApp-<version>-arm64.zip` 及其 `.sha256`。仅在确认目标应用版本支持 Intel 且已验证时再发布 Intel 包。
 5. 使用 [RELEASE_NOTES.md](RELEASE_NOTES.md) 作为说明基础，准确保留尚未验证的项目。
 
-普通用户下载应用 ZIP 后即可运行启动器，不需要自己安装开发工具。Codex 桌面应用仍需另行安装。
+普通用户下载应用 ZIP 后即可运行启动器，不需要自己安装开发工具。目标应用仍需另行安装。
 
 ## 签名与公证
 

@@ -10,6 +10,8 @@ final class ProfileIsolationTests {
             .appendingPathComponent("codex-multi-tests-\(UUID().uuidString)")
         store = ProfileStore(root: root)
         _ = try store.load()
+        _ = try store.create(name: "Fixture One")
+        _ = try store.create(name: "Fixture Two")
     }
 
     func tearDownWithError() throws {
@@ -47,7 +49,9 @@ final class ProfileIsolationTests {
         let profile = try store.create(name: "../../work; $(touch oops) '账号'")
         let paths = try store.prepare(profile)
         XCTAssertEqual(paths.root.deletingLastPathComponent(), root.appendingPathComponent("profiles", isDirectory: true))
-        XCTAssertEqual(paths.root.lastPathComponent, profile.id.uuidString.lowercased())
+        XCTAssertEqual(paths.root.lastPathComponent, profile.directoryName)
+        XCTAssertFalse(paths.root.lastPathComponent.contains(".."))
+        XCTAssertFalse(paths.root.lastPathComponent.contains("/"))
         let plan = LaunchPlan(paths: paths)
         XCTAssertEqual(plan.arguments, ["--user-data-dir=\(paths.desktop.path)"])
         XCTAssertFalse(plan.arguments.joined().contains("touch oops"))

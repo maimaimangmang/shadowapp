@@ -1,93 +1,170 @@
-# Codex Multi
+<p align="center">
+  <img src="Resources/ShadowApp.png" alt="ShadowApp logo" width="100" height="100">
+</p>
+<h1 align="center">ShadowApp</h1>
+<p align="center"><strong>一个入口，多个应用，各自的账号空间。</strong></p>
+<p align="center">Mac 上的 Codex、Claude、WorkBuddy 和微信多开管理器。</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-13%2B-222222?logo=apple" alt="macOS 13+">
+  <img src="https://img.shields.io/badge/SwiftUI-native-F05138?logo=swift&logoColor=white" alt="Native SwiftUI">
+  <img src="https://img.shields.io/badge/status-preview-8B7CF8" alt="Preview">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-555555" alt="MIT license"></a>
+</p>
+<p align="center">
+  简体中文 · <a href="README.en.md">English</a> · <a href="#快速开始">快速开始</a> · <a href="docs/COMPATIBILITY.md">兼容性记录</a> · <a href="CHANGELOG.md">更新日志</a>
+</p>
 
-在 Mac 上同时打开多个 Codex 账号。每个账号独立登录，保存各自的会话和设置。
+![ShadowApp 主界面：按应用管理个人、工作和模型实验空间](docs/images/zh/overview.png)
 
-[English](README.en.md) · [兼容性与验证](docs/COMPATIBILITY.md) · [发布到 GitHub](docs/PUBLISHING.md)
+<p align="center"><sub>由当前 SwiftUI 界面渲染，使用示例空间，无真实账号或密钥。图中的 ShadowApp-Preview 为演示目录。</sub></p>
 
-**v0.1.0 预览版。** 这是一个独立的社区启动器，不隶属于 OpenAI。需要你已经安装 Codex 桌面应用。启动器使用了尚未公开的桌面数据目录参数，Codex 更新可能影响兼容性。两个不同账号的完整登录与退出验证仍需人工完成，详见验证记录。
+把个人账号、工作账号和不同模型配置分开管理，需要哪个就打开哪个。ShadowApp 使用本机已安装的应用，无需额外运行虚拟机或切换 macOS 用户。
 
-已在 Apple Silicon Mac 上验证启动两个独立实例、切换、单独退出及重开启动器后的识别；13 项核心检查通过。
+- **按应用管理**：在侧栏切换应用，创建和命名各自的空间。
+- **账号与模型分开配置**：Codex、Claude 支持账号模式或供应商 API Key，可填写接口地址和模型 ID。
+- **窗口随时找得到**：打开新实例、显示已有窗口、单独退出；退出 ShadowApp 后，应用仍可继续运行。
+- **数据位置看得见**：每张空间卡片展示实际路径，可复制或在访达中打开。
 
-## 下载预览版
+> ShadowApp 原名 **Codex Multi**，仓库地址和已有数据目录保留。本文介绍 `main` 分支的开发版；[v0.1.0 下载包](https://github.com/maimaimangmang/codex-multi/releases/tag/v0.1.0) 仍是旧版 Codex Multi，未包含这里展示的全部功能。
 
-[下载 Apple Silicon 应用 ZIP](https://github.com/maimaimangmang/codex-multi/releases/download/v0.1.0/Codex-Multi-0.1.0-arm64.zip) · [版本说明与校验和](https://github.com/maimaimangmang/codex-multi/releases/tag/v0.1.0)
+## 支持哪些应用
 
-适用于 M 系列芯片 Mac。解压后打开 `Codex Multi.app`，也可以拖入「应用程序」。需要自行安装 Codex 桌面应用。此构建使用临时签名，未经 Apple 公证；若 macOS 阻止打开，可在确认来源后通过「系统设置 → 隐私与安全性」批准，或从源码构建。
+| 应用 | 连接方式 | 当前适配范围 |
+| --- | --- | --- |
+| **Codex** | ChatGPT 账号 / API Key | 已在 `26.1016.51333` 上验证；启动时检查所需能力 |
+| **Claude** | Claude 账号 / API Key | 预览支持 `4.29.0` 的已验证构建 |
+| **WorkBuddy** | WorkBuddy 账号；模型在应用内配置 | 多开预览，适配 `5.8.3` 的已验证构建 |
+| **微信** | 微信扫码登录、手机确认 | 实验性；仅 Apple Silicon + Mac App Store `4.1.15 (270115)` |
 
-## 使用
+不同应用的数据分离方式和功能范围不同。应用升级可能需要重新适配；完整验证范围见 [兼容性记录](docs/COMPATIBILITY.md)、[WorkBuddy 说明](docs/WORKBUDDY.md) 和 [微信说明](docs/WECHAT.md)。
 
-1. 打开 `Codex Multi.app`，确认页面检测到了你的 Codex。没有检测到时，点击「选择应用」。应用名称可能是 `Codex.app` 或 `ChatGPT.app`，程序会核对其标识。
-2. 点击「个人账号」的「打开 Codex」，在新窗口中登录第一个账号。
-3. 完成登录后，再打开「工作账号」，登录另一个账号。浏览器如果自动选中了旧账号，请在登录流程里改选所需账号。
-4. 两个窗口可以同时工作。以后从启动器或菜单栏点击账号名，即可打开对应空间或切换到已有窗口。
+## 快速开始
 
-每个空间首次使用都需要登录。启动器不导入原有 Codex 的凭据或历史。「运行中」只表示实例已运行，不代表已登录。首次登录请逐个完成，避免多个浏览器登录回调同时等待。
+### 1. 获取当前版本
 
-支持添加、重命名、单独退出、在访达中查看数据，以及将已停止空间的数据移至废纸篓。退出启动器后，已打开的 Codex 会继续运行。
-
-## 从源码构建
-
-需要 macOS 13 或更高版本、Swift 5.9 或更高版本，以及 Apple Command Line Tools 或 Xcode。Codex 自身可能有更高的系统或硬件要求，以安装的版本为准。
+新版可从源码构建。需要 **macOS 13+、Swift 5.9+、Xcode 或 Command Line Tools**；目标应用还需满足自身系统要求，并提前安装。
 
 ```bash
-# 如果尚未安装 Apple 开发工具，手动执行：
+# 如果尚未安装 Apple 开发工具
 xcode-select --install
 
-# 在本项目根目录执行：
-bash scripts/test.sh
+# 获取源码并构建；默认使用当前 Mac 的芯片架构
+git clone https://github.com/maimaimangmang/codex-multi.git
+cd codex-multi
 bash scripts/build.sh
+open "dist/$(uname -m)/ShadowApp.app"
 ```
 
-生成的应用和 ZIP 位于 `dist/`。构建没有第三方 Swift 包依赖，不会下载 Codex、模型或账号数据。测试使用一个小型断言运行器，Command Line Tools 即可执行，不需要 XCTest。
+构建产物也可以拖入「应用程序」。默认采用本地临时签名，未经 Apple 公证；分发说明见 [PUBLISHING](docs/PUBLISHING.md)。
 
-可以指定启动器的目标架构：
+也可从成功的 [GitHub Actions 构建](https://github.com/maimaimangmang/codex-multi/actions/workflows/build.yml) 下载 `shadowapp-preview` 产物，需要登录有仓库访问权限的 GitHub 账号。
 
-```bash
-bash scripts/build.sh arm64
-bash scripts/build.sh x86_64
-```
+### 2. 创建一个空间
 
-Intel 构建仅表示启动器可编译；是否可以运行 Codex 取决于用户安装的 Codex 版本。默认构建使用本地临时签名，未经 Apple 公证。下载分发的构建可能需要在「系统设置 → 隐私与安全性」中批准打开；只对你信任的构建这样操作。也可以自行从源码构建。
+1. 在侧栏选择应用，点击 **新建空间**，起一个便于区分的名字，例如「工作」。
+2. Codex / Claude 默认选择 **API Key**；需要使用应用账号时，切换到对应的账号选项。
+3. 保存后点击 **打开**。账号模式在新窗口中完成登录；多个账号请逐个登录，确认浏览器里选择的是目标账号。
+4. 以后从 ShadowApp 或菜单栏进入对应空间。已经运行的实例会显示 **显示窗口**。
 
-## 数据保存在哪里
+空间名称只是你自己的标签，不代表已经登录某个账号。「运行中」表示进程存在，不代表账号已登录或模型调用成功。已有窗口可以直接显示，ShadowApp 不自动导入其登录信息或聊天记录。
+
+## 使用 API Key 和自定义模型
+
+<p align="center">
+  <img src="docs/images/zh/api-key.png" alt="新建 API Key 空间：供应商、Key、模型 ID 与测试连接" width="440">
+</p>
+
+选择 **胜算云** 使用预填地址，或选择 **自定义供应商** 填写自己的网关。粘贴 API Key 和供应商提供的完整模型 ID，即可保存为独立空间。
+
+| 设置 | Codex | Claude |
+| --- | --- | --- |
+| 所需协议 | OpenAI **Responses API** | **Anthropic Messages API** |
+| 胜算云 Base URL | `https://router.shengsuanyun.com/api/v1` | `https://router.shengsuanyun.com/api` |
+| 模型 ID | 供应商支持的完整模型 ID | Claude 模型或相应网关路由 ID |
+| 使用入口 | 打开后选择 **Codex**，新建聊天 | 使用已配置的第三方推理供应商 |
+
+[获取胜算云 API Key](https://console.shengsuanyun.com/user/keys) · [查看模型列表](https://global.modelmesh.info/model)
+
+- **先试再保存**：填写完整后可点「测试连接」。测试会发送一条简短请求，可能产生少量费用；保存本身不发起测试。
+- **协议要匹配**：只支持 Chat Completions 的接口不能直接用于 Codex。实际使用还需要流式输出、工具调用等兼容性；基础连接成功不代表全部功能可用。Claude 不支持把 DeepSeek / GLM 的名称改成 Claude 来使用。
+- **修改配置**：先退出对应空间，再选择「… → 模型与 API Key」。Key 留空可保留原值；更换接口地址时需要重新填写 Key。
+- **确认模型**：Codex 的「模型信息」会区分配置值与最近本地会话记录。模型在聊天中的自述不能证明实际路由，最终还需结合供应商记录。
+
+API Key 保存在本机空间配置中，敏感文件限制为当前用户读写，不写入账号列表。备份空间时也会包含凭据，请按账号数据保管。WorkBuddy 的自定义模型在其 **设置 → 模型** 中配置，仍需先登录 WorkBuddy 账号。
+
+## 微信多开 · 实验性
+
+![微信空间界面：独立空间、账号数据路径与使用说明](docs/images/zh/wechat.png)
+
+选择 **微信 → 新建空间 → 打开**。首次启动会创建本地签名副本，并在微信窗口中显示登录二维码；之后重开可能仍需手机确认。不提供短信登录或 API Key 登录。
+
+每个空间使用独立应用身份和 macOS 数据容器，原微信安装保持原样。副本保留 App Sandbox 和 Hardened Runtime，但放宽了动态库签名校验，保护与原版并不完全相同；系统分享、文件提供器扩展和外部微信链接入口未包含在副本中。
+
+**归档空间会保留应用副本、登录信息和聊天数据，可以恢复。** 微信空间暂不提供彻底删除或导入旧测试副本。
+
+已验证独立实例启动、窗口识别、单独退出、归档恢复，以及单个测试空间扫码登录和重开确认。**两个实例启动成功不等于两个账号能持续同时在线**；手机切换账号可能使电脑下线，消息附件、通知和音视频等完整功能仍待验证。详见 [微信实现与验证记录](docs/WECHAT.md)。
+
+## 空间的数据在哪里
+
+每张卡片下方都有路径。默认根目录保留为 `~/CodexMulti`，升级为 ShadowApp 无需迁移已有空间。新建目录采用「名称 + 短编号」，避免同名目录冲突；重命名空间不会移动数据。
 
 ```text
-~/Library/Application Support/Codex Multi/
-├── profiles.json                # 名称、应用路径、实例标识；不含令牌
-└── profiles/<随机 UUID>/
-    ├── codex/                   # 配置、登录、会话、SQLite 状态等
-    └── desktop/                 # 窗口、浏览器存储和缓存等
+~/CodexMulti/
+├── profiles/                         Codex 空间
+│   └── 工作-a1b2c3d4/
+│       ├── codex/                    配置、认证和会话
+│       └── desktop/                  桌面状态
+└── apps/
+    ├── claude/profiles/               Claude 空间
+    ├── workbuddy/profiles/            WorkBuddy 空间，含独立 HOME
+    └── wechat/profiles/               微信副本与管理记录
+
+~/Library/Containers/
+└── org.shadowapp.wechat.space.<ID>/   微信的实际账号数据
 ```
 
-每次启动都为对应空间传递 `CODEX_HOME`、`CODEX_SQLITE_HOME`、`CODEX_ELECTRON_USER_DATA_PATH` 和 `--user-data-dir`。新空间的配置使用 `cli_auth_credentials_store = "file"`，让凭据留在该空间内；已有配置会保留。不要把这些目录、`auth.json` 或登录日志上传到 GitHub。目录权限为 `0700`，新配置文件为 `0600`。
+仍在使用旧存储位置或自定义目录时，以界面显示为准。不要移动正在运行的空间。
 
-这是本地状态隔离，不是操作系统安全沙箱：同一 macOS 用户下的进程仍可访问用户有权限读取的文件；两个账号同时修改同一个项目也可能冲突。组织策略、外部浏览器登录状态、系统权限和部分系统级集成仍可能共享。自行修改配置里的凭据存储或 `sqlite_home` 可能改变隔离行为。
-
-官方参考：[状态目录环境变量](https://learn.chatgpt.com/docs/config-file/environment-variables)、[凭据存储](https://learn.chatgpt.com/docs/auth)。桌面数据目录参数来自已安装应用的本地兼容性检查，不是官方多账号支持承诺。
+| 操作 | 影响 |
+| --- | --- |
+| 退出 ShadowApp | 已打开的应用继续运行 |
+| 退出此窗口 | 请求关闭该空间的应用实例 |
+| 移至废纸篓（Codex / Claude / WorkBuddy） | 移动整个空间文件夹，包含本地配置、凭据与历史 |
+| 归档空间（微信） | 隐藏空间并保留副本及系统容器，可恢复 |
 
 ## 常见问题
 
-**为何不能直接复制应用来多开？** 应用副本通常仍会使用相同的状态目录。本工具为每个空间分配独立目录，并用 macOS 的新实例启动接口打开已安装应用。
+**为什么 API Key 模式还提示 ChatGPT Work 账号验证？**
 
-**点击多次会创建多个同账号窗口吗？** 运行中的空间会直接切换窗口。启动过程中按钮被禁用；Codex 自身的实例锁也保留。状态无法确认时会停止继续启动或退出，提示用户检查对应窗口。
+`Work browser access requires an authenticated account` 指的是 Work 浏览器功能。请从应用左上角切换到 **Codex** 并新建聊天；供应商 Key 不代替 ChatGPT Work 账号。
 
-**新开的窗口为何仍叫 ChatGPT / Codex？** 窗口和 Dock 名称来自原应用，不会跟随空间名称改变。同名不代表数据共用；分别检查两个窗口的登录账号，确认邮箱不同。
+**独立空间是不是完全隔离？**
 
-**退出一个账号会影响其他账号吗？** 启动器只向验证过的那个进程请求正常退出，不使用 `killall`。在 Codex 内退出登录的跨账号影响仍需按兼容性清单验证。
+ShadowApp 分离受支持应用的数据和配置。浏览器登录、系统权限、部分链接回跳等仍可能共享；这不是独立 macOS 用户，也不提供地区限制或账号封禁规避能力。
 
-**更新 Codex 后打不开？** 再次选择应用。每次启动都会检查应用标识和桌面目录参数；检查不通过时保留数据并停止。检查通过也不保证所有新版本都兼容。
+**应用更新后打不开了怎么办？**
 
-**如何卸载？** 退出启动器和由它打开的 Codex 实例，删除启动器应用。账号空间默认保留；若不需要，可将上面的 `Codex Multi` 数据目录移至废纸篓。
+未知的 Claude、WorkBuddy、微信构建会停止启动并保留数据。先查看兼容性提示；提交问题时提供系统版本、应用版本和错误文字，不要附带 Key、认证文件或聊天数据。
 
-## 项目结构
+**怎么切换中英文？**
 
-```text
-Sources/CodexMulti/        SwiftUI 界面与账号操作
-Sources/CodexMultiCore/    目录、注册表、应用检查、原生启动
-Tests/                    隔离、数据保护、进程身份等检查
-scripts/                  测试、构建、图标生成
-.github/workflows/        macOS 自动测试与构建
-docs/                     兼容性记录、架构、发布说明
+界面跟随系统的应用语言。可在 macOS「系统设置 → 通用 → 语言与地区 → 应用程序」为 ShadowApp 指定中文或英文。
+
+## 开发与参与
+
+原生 SwiftUI，使用系统框架，没有第三方 Swift 包依赖。
+
+```bash
+bash scripts/test.sh                 # 核心与状态检查
+bash scripts/build.sh arm64          # Apple Silicon
+bash scripts/build.sh x86_64         # Intel 构建，不代表所有目标应用均支持 Intel
+bash scripts/render-docs.sh          # 用临时示例数据生成中英文界面图
 ```
 
-MIT License。欢迎提交兼容性记录与修复；请先阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
+实机检查脚本会启动目标应用，按对应文档主动执行；普通测试和 CI 不会自动登录微信。提交问题或 PR 时，请说明目标应用、版本、复现步骤和预期行为。
+
+- [架构说明](docs/ARCHITECTURE.md) · [界面设计](docs/UI_DESIGN.md)
+- [兼容性与验证记录](docs/COMPATIBILITY.md) · [发布说明](docs/PUBLISHING.md)
+- [截图生成方式](docs/images/README.md) · [更新日志](CHANGELOG.md) · [提交问题](https://github.com/maimaimangmang/codex-multi/issues)
+
+采用 [MIT License](LICENSE)。ShadowApp 是独立社区项目，与 OpenAI、Anthropic、腾讯无隶属或授权合作关系。各应用名称、图标与商标属于其权利人。
