@@ -25,7 +25,7 @@ Keep personal accounts, work accounts and model configurations in separate profi
 - **Find the right window.** Open an instance, bring an existing window forward or quit a specific profile. Apps keep running when the launcher closes.
 - **See where data lives.** Each profile shows its actual data path, with copy and Finder actions.
 
-> ShadowApp was previously **Codex Multi**. The repository URL and existing storage paths are retained. This README describes the development version on `main`; the [v0.1.0 download](https://github.com/maimaimangmang/codex-multi/releases/tag/v0.1.0) is the older Codex Multi build and does not contain all the features shown here.
+> ShadowApp was previously **Codex Multi**. The repository is now named `shadowapp`; existing storage paths are retained. This README describes the development version on `main`; the [v0.1.0 download](https://github.com/maimaimangmang/shadowapp/releases/tag/v0.1.0) is the older Codex Multi build and does not contain all the features shown here.
 
 ## Supported apps
 
@@ -49,15 +49,15 @@ Build the latest source with **macOS 13+, Swift 5.9+, and Xcode or Command Line 
 xcode-select --install
 
 # Build for the architecture of this Mac
-git clone https://github.com/maimaimangmang/codex-multi.git
-cd codex-multi
+git clone https://github.com/maimaimangmang/shadowapp.git
+cd shadowapp
 bash scripts/build.sh
 open "dist/$(uname -m)/ShadowApp.app"
 ```
 
 You can move the resulting app to Applications. Builds use an ad-hoc local signature by default and are not Apple-notarized. See [distribution instructions](docs/PUBLISHING.md).
 
-Alternatively, download the `shadowapp-preview` artifact from a successful [GitHub Actions build](https://github.com/maimaimangmang/codex-multi/actions/workflows/build.yml). This requires a signed-in GitHub account with repository access.
+Alternatively, download the `shadowapp-preview` artifact from a successful [GitHub Actions build](https://github.com/maimaimangmang/shadowapp/actions/workflows/build.yml). This requires a signed-in GitHub account with repository access.
 
 ### 2. Create a profile
 
@@ -165,6 +165,6 @@ Runtime checks launch target apps and should be run explicitly following their d
 
 - [Architecture](docs/ARCHITECTURE.md) · [UI design](docs/UI_DESIGN.md)
 - [Compatibility record](docs/COMPATIBILITY.md) · [Distribution](docs/PUBLISHING.md)
-- [Image generation](docs/images/README.md) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/maimaimangmang/codex-multi/issues)
+- [Image generation](docs/images/README.md) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/maimaimangmang/shadowapp/issues)
 
 Licensed under the [MIT License](LICENSE). ShadowApp is an independent community project, with no affiliation or authorized partnership with OpenAI, Anthropic or Tencent. App names, icons and trademarks belong to their respective owners.

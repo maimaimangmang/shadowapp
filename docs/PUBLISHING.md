@@ -1,6 +1,6 @@
 # 发布到 GitHub
 
-产品名称为 ShadowApp，现有仓库地址 `maimaimangmang/codex-multi` 保留。项目采用 MIT 许可证，公开源码即可供他人构建。
+产品名称与仓库名称已统一为 ShadowApp，仓库地址为 `maimaimangmang/shadowapp`。项目采用 MIT 许可证，公开源码即可供他人构建。
 
 ## 更新现有仓库
 

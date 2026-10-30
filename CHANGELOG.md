@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Rename the GitHub repository to `shadowapp` and update repository links and clone instructions.
+
 - Rewrite the Chinese and English READMEs around ShadowApp, with bilingual interface images, current compatibility, API-key setup, data lifecycle and reproducible documentation rendering.
 
 - Add experimental WeChat profiles for the verified Mac App Store 4.1.15 (270115) build on Apple Silicon. Prepare per-profile locally signed copies with App Sandbox, unique identities and system data containers; check integrity and runtime sandbox before use.

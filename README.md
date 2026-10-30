@@ -25,7 +25,7 @@
 - **窗口随时找得到**：打开新实例、显示已有窗口、单独退出；退出 ShadowApp 后，应用仍可继续运行。
 - **数据位置看得见**：每张空间卡片展示实际路径，可复制或在访达中打开。
 
-> ShadowApp 原名 **Codex Multi**，仓库地址和已有数据目录保留。本文介绍 `main` 分支的开发版；[v0.1.0 下载包](https://github.com/maimaimangmang/codex-multi/releases/tag/v0.1.0) 仍是旧版 Codex Multi，未包含这里展示的全部功能。
+> ShadowApp 原名 **Codex Multi**，仓库现名为 `shadowapp`，已有数据目录保留。本文介绍 `main` 分支的开发版；[v0.1.0 下载包](https://github.com/maimaimangmang/shadowapp/releases/tag/v0.1.0) 仍是旧版 Codex Multi，未包含这里展示的全部功能。
 
 ## 支持哪些应用
 
@@ -49,15 +49,15 @@
 xcode-select --install
 
 # 获取源码并构建；默认使用当前 Mac 的芯片架构
-git clone https://github.com/maimaimangmang/codex-multi.git
-cd codex-multi
+git clone https://github.com/maimaimangmang/shadowapp.git
+cd shadowapp
 bash scripts/build.sh
 open "dist/$(uname -m)/ShadowApp.app"
 ```
 
 构建产物也可以拖入「应用程序」。默认采用本地临时签名，未经 Apple 公证；分发说明见 [PUBLISHING](docs/PUBLISHING.md)。
 
-也可从成功的 [GitHub Actions 构建](https://github.com/maimaimangmang/codex-multi/actions/workflows/build.yml) 下载 `shadowapp-preview` 产物，需要登录有仓库访问权限的 GitHub 账号。
+也可从成功的 [GitHub Actions 构建](https://github.com/maimaimangmang/shadowapp/actions/workflows/build.yml) 下载 `shadowapp-preview` 产物，需要登录有仓库访问权限的 GitHub 账号。
 
 ### 2. 创建一个空间
 
@@ -165,6 +165,6 @@ bash scripts/render-docs.sh          # 用临时示例数据生成中英文界�
 
 - [架构说明](docs/ARCHITECTURE.md) · [界面设计](docs/UI_DESIGN.md)
 - [兼容性与验证记录](docs/COMPATIBILITY.md) · [发布说明](docs/PUBLISHING.md)
-- [截图生成方式](docs/images/README.md) · [更新日志](CHANGELOG.md) · [提交问题](https://github.com/maimaimangmang/codex-multi/issues)
+- [截图生成方式](docs/images/README.md) · [更新日志](CHANGELOG.md) · [提交问题](https://github.com/maimaimangmang/shadowapp/issues)
 
 采用 [MIT License](LICENSE)。ShadowApp 是独立社区项目，与 OpenAI、Anthropic、腾讯无隶属或授权合作关系。各应用名称、图标与商标属于其权利人。
