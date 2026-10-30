@@ -59,8 +59,6 @@ Data separation and feature coverage vary by app. Updates may require adapter ch
 
 This preview uses an ad-hoc signature and is not Apple-notarized. If macOS blocks it, confirm the download source and use **System Settings → Privacy & Security → Open Anyway**. Intel builds are available for developers, but an Intel release package is not provided until runtime validation is complete.
 
-While this repository is private, downloads require a GitHub account with repository access.
-
 ### 2. Create a profile
 
 1. Select an app and choose **New profile**. Give it a recognizable name, such as “Work”.
